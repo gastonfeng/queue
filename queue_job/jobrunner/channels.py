@@ -1050,8 +1050,8 @@ class ChannelManager(object):
             job.channel.set_done(job)
         elif state == PENDING:
             job.channel.set_pending(job)
-        elif state in (ENQUEUED, STARTED):
-            job.channel.set_running(job)
+#        elif state in (ENQUEUED, STARTED):
+#            job.channel.set_running(job)
         elif state == FAILED:
             job.channel.set_failed(job)
         elif state == WAIT_DEPENDENCIES:
