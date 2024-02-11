@@ -520,6 +520,8 @@ class Channel:
         if not self.capacity:
             # unlimited capacity
             return True
+        if len(self._running) >= self.capacity:
+            _logger.debug("queue full")
         return len(self._running) < self.capacity
 
     def get_jobs_to_run(self, now):
@@ -1050,8 +1052,8 @@ class ChannelManager:
             job.channel.set_done(job)
         elif state == PENDING:
             job.channel.set_pending(job)
-        elif state in (ENQUEUED, STARTED):
-            job.channel.set_running(job)
+        # elif state in (ENQUEUED, STARTED):
+        #     job.channel.set_running(job)
         elif state == FAILED:
             job.channel.set_failed(job)
         elif state == WAIT_DEPENDENCIES:
